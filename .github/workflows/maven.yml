@@ -30,7 +30,10 @@ jobs:
       - name: Send notification to slack from github using githubaction
         uses: slackapi/slack-github-action@v1.25.0
         with:
-         slack-message: "GitHub build result: ${{ job.status }}"
+         payload: |
+          {
+           "text": "Sending Notification "
+           }
         env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
 
