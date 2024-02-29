@@ -41,7 +41,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v2
         with:
           projectBaseDir: ./spring-boot-ems
-          arguments: >
+          args: >
             -Dsonar.organization=ajayingale12345
             -Dsonar.projectKey=ajayingale12345_GithubAction_POC_CI
             -Dsonar.sources=src/main
