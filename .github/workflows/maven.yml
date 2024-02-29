@@ -2,10 +2,10 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: 
+    branches:
       - master
   pull_request:
-    branches: 
+    branches:
       - master
 
 jobs:
@@ -26,12 +26,22 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package --file spring-boot-ems/pom.xml
-      
+
+      - name: Send notification to slack from github using githubaction
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+         payload: |
+          {
+           "text": "Sending Notification "
+           }
+           env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v2
         with:
           projectBaseDir: ./spring-boot-ems
-          args: >
+          arguments: >
             -Dsonar.organization=ajayingale12345
             -Dsonar.projectKey=ajayingale12345_GithubAction_POC_CI
             -Dsonar.sources=src/main
