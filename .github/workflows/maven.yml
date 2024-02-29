@@ -23,6 +23,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Install JFrog CLI
+        run: |
+         curl -fL https://getcli.jfrog.io | sh
+         sudo mv jfrog /usr/local/bin/ # Assuming jfrog is in the current directory
 
       - name: Build with Maven
         run: mvn -B package --file spring-boot-ems/pom.xml
@@ -49,3 +53,10 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Set JFrog CLI Path
+        run: |
+              export PATH=$PATH:/usr/local/bin\
+
+      - name: Push Artifacts to JFrog
+        run: |
+           jfrog rt u target/*.jar maven_repo-libs-snapshot-local/ --url=https://jfroggithubaction.jfrog.io/artifactory/maven_repo-libs-snapshot-local/ --access-token=eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJGR1VISEU2a3VsVzkzUDVCZDRsbGRaVnEyZHdic0pNa1AyU3NVVFRSUUNvIn0.eyJzdWIiOiJqZmFjQDAxaHFyanZtNmFzNzhkMWN5ZTZ0MXoxODk4L3VzZXJzL2FqYXlpbkBjeWJhZ2UuY29tIiwic2NwIjoiYXBwbGllZC1wZXJtaXNzaW9ucy9hZG1pbiIsImF1ZCI6IipAKiIsImlzcyI6ImpmZmVAMDFocXJqdm02YXM3OGQxY3llNnQxejE4OTgiLCJpYXQiOjE3MDkyMDg4ODAsImp0aSI6ImMyNThiMDkzLTRlNDktNDcwYy1hOWQ2LTEzYTZjMWU1OTExOSJ9.rn74c4ENiS5nggGSH1XVR0i06UYKg-xibVXEY9d6ZRY4iMMPcp7bzZQFemlDnZHjvj7RFFYl5aIFfdWXCpJ9TuFo3C_yhXuPDdjteMt2F_gu05NrSz2n9Wg2rxkl2vB-0_AsZVp4RbNGZkOLkdKGW5VVHzdd7uwdBarnOlV3EDYL9Smj1O6wUKCakQHHJMat2cWgvl6QNOp2xkfGPGLE85WkpVgSbD0esJ37G98SC7ayckd1lc-_EA5WaVc8yVW2_iyANcXkPa4S2SaTksjCpqMe_pHEDZ-oy4AFjXYd3FCU1zLRnpas3wlFAIPy2UGr9qWFuIhk5nQxF96IZAivSw
