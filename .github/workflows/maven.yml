@@ -31,5 +31,8 @@ jobs:
            -Dsonar.projectKey=ajayingale12345_GithubAction_POC_CI
            -Dsonar.sources=src/main
            -Dsonar.java.binaries=target
-
-    
+       
+           env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+   
