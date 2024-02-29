@@ -28,7 +28,7 @@ jobs:
           projectBaseDir: ./spring-boot-ems
           args: >
            -Dsonar.organization=ajayingale12345
-           -Dsonar.projectKey=ajayingale12345_GithubAction_POC
+           -Dsonar.projectKey=ajayingale12345_GithubAction_POC_CI
            -Dsonar.sources=src/main
            -Dsonar.java.binaries=target
 
